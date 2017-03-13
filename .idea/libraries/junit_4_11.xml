@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="junit-4.11">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/junit-4.11.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/hamcrest-all-1.3.jar!/" />
+      <root url="file://$USER_HOME$/Downloads" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Downloads/jawin-2.0-alpha1/docs/api" />
+      <root url="file://$USER_HOME$/Downloads/jawin-2.0-alpha1/docs/api-donated-stubs" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$USER_HOME$/Downloads/OS/src" />
+      <root url="file://$USER_HOME$/Downloads/jawin-2.0-alpha1/demos" />
+      <root url="file://$USER_HOME$/Downloads" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Downloads" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads" recursive="false" type="SOURCES" />
+  </library>
+</component>

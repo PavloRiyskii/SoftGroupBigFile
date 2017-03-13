@@ -1,3 +1,5 @@
+package Top;
+
 /**
  * Created by pavlo on 12.03.17.
  */
@@ -48,7 +50,7 @@ public class TopElement  implements  Comparable{
     }
 
     /**
-     * Compare current object to incoming TopElement object
+     * Compare current object to incoming Top.TopElement object
      * @param o
      * @return 1 if this object is "grather" than incomed, -1 if "lower" and 0 if those object is equals
      */
