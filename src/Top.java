@@ -45,22 +45,28 @@ public class Top {
         PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(temp, true)));
 
         String currentCountFrase;
-        boolean isEmpty = true;
+        boolean isEmpty = true, isWrited = false;
 
         while((currentCountFrase = countReader.readLine()) != null ){
             String[] topElement = currentCountFrase.split("\\" + spliter);
 
-            if(topElement[0].compareTo(currentFrase) == 0) {
-                currentCountFrase = currentFrase + spliter + (Integer.parseInt(topElement[1]) + 1);
-            } else if(topElement[0].compareTo(currentFrase) > 0) {
-                writer.println(currentFrase + spliter + "1");
+            if(topElement[0].equals(currentFrase)) {
+                if (!isWrited) {
+                    currentCountFrase = currentFrase + spliter + (Integer.parseInt(topElement[1]) + 1);
+                    isWrited = true;
+                }
+            } else if(topElement[0].compareTo(currentFrase) >= 0) {
+                if(!isWrited) {
+                    isWrited = true;
+                    writer.println(currentFrase + spliter + "1");
+                }
             }
 
             writer.println(currentCountFrase);
             isEmpty = false;
         }
 
-        if(isEmpty) {
+        if(isEmpty || !isWrited) {
             writer.println(currentFrase + spliter + "1");
         }
 
@@ -73,26 +79,26 @@ public class Top {
     }
 
     private List<TopElement> generateTop() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(this.countFile));
         List<TopElement> top = new ArrayList<>();
-        String elem;
-        while((elem = reader.readLine()) != null) {
-            String[] currentElemeString = elem.split("\\" + spliter);
-            TopElement currentElem = new TopElement(currentElemeString[0], Integer.parseInt(currentElemeString[1]));
-            top.add(findPlace(top, currentElem), currentElem);
+        String string;
+        BufferedReader reader = new BufferedReader(new FileReader(countFile));
+        while((string = reader.readLine()) != null) {
+            String[] currentElement = string.split("\\" + spliter);
+            TopElement elem = new TopElement(currentElement[0], Integer.parseInt(currentElement[1]));
+            top.add(findPlace(top, elem),elem);
         }
-
         return top;
     }
 
-    private int findPlace(List<TopElement> elements, TopElement currentElement) {
-        int i = 0;
+    private int findPlace(List<TopElement> elements, TopElement elemet) {
         ListIterator<TopElement> iter = elements.listIterator();
-        while(iter.hasNext() && i != topNumber) {
-            if(currentElement.compareTo(iter.next()) == 1)
+        int i = 0;
+        while(iter.hasNext()) {
+            if(elemet.compareTo(iter.next()) >= 0)
                 return i;
             i++;
         }
-        return i < topNumber ? 0: topNumber + 1;
+        return i < topNumber ? 0 : topNumber;
     }
+
 }
