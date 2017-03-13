@@ -15,15 +15,26 @@ public class Top {
     private String spliter;
     private int topNumber;
 
-    public Top(File bigFile, String spliter, int topNumber) throws IOException {
+    /**
+     * I used here "|" as spliter
+     * @param bigFile the file with size more than 10 GB
+     * @param topNumber the number of generated top
+     * @throws IOException
+     */
+    public Top(File bigFile,  int topNumber) throws IOException {
         this.bigFile = bigFile;
-        this.spliter = spliter;
+        this.spliter = "|";
         this.topNumber = topNumber;
         this.countFile = new File(System.getProperty("user.dir") + "/count.txt");
         countFile.delete();
         countFile.createNewFile();
     }
 
+    /**
+     *
+     * @return the list of top frazes the size of list is choosen by you in constructor
+     * @throws IOException
+     */
     public List<TopElement> getTop() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(bigFile));
         String readedLine;
@@ -85,9 +96,13 @@ public class Top {
         while((string = reader.readLine()) != null) {
             String[] currentElement = string.split("\\" + spliter);
             TopElement elem = new TopElement(currentElement[0], Integer.parseInt(currentElement[1]));
-            top.add(findPlace(top, elem),elem);
+            int place = findPlace(top, elem);
+            if(place == topNumber) {
+                continue;
+            }
+            top.add(place, elem);
         }
-        return top;
+        return top.subList(0, topNumber > top.size() ? top.size() : topNumber);
     }
 
     private int findPlace(List<TopElement> elements, TopElement elemet) {
@@ -99,6 +114,10 @@ public class Top {
             i++;
         }
         return i < topNumber ? 0 : topNumber;
+    }
+
+    private void cleanGarbige(List<TopElement> elements) {
+
     }
 
 }
